@@ -70,8 +70,7 @@ cookieChoices = {};
 
  <style>
 
-
-   .blink {
+        .blink {
             animation: blink-animation 1s steps(2, start) infinite;
         }
         @keyframes blink-animation {
@@ -87,39 +86,29 @@ cookieChoices = {};
             margin: 0 1px;
             font-size: 11px;
         }
+        .event-live {
+            color: red;
+            font-weight: bold;
+        }
         .event {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            text-decoration: none;
+            color: inherit;
+            margin: 10px 0;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f9f9f9;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
         }
         .event-name {
-            flex: 3;
-            text-align: center;
-            background-color: #3749b4;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            text-decoration: none; /* Remove underline from links */
+            flex: 2;
+            text-align: left;
         }
         .event-countdown {
             flex: 1;
-            text-align: center;
-            font-size: 11px;
-            color: #333;
+            text-align: right;
         }
-        .event-live {
-        color: red;
-       font-size: 15px;
-        }
-
-
    
   .yosintv-container {
     width: 100%;
