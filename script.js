@@ -1,14 +1,5 @@
-// Function to fetch JSON with cache busting
-function fetchWithCacheBusting(url) {
-    const timestamp = new Date().getTime(); // Current timestamp
-    const urlWithTimestamp = `${url}?t=${timestamp}`; // Add timestamp to URL for cache busting
-    return fetch(urlWithTimestamp, {
-        cache: 'no-store' // Ensure no cache is used
-    });
-}
-
-// Fetch football events with cache busting and no-cache
-fetchWithCacheBusting('football.json')
+// Fetch football events
+fetch('football.json')
     .then(response => response.json())
     .then(data => {
         // Loop through each football league and render matches
@@ -34,8 +25,8 @@ fetchWithCacheBusting('football.json')
     })
     .catch(error => console.error('Error loading football events:', error));
 
-// Fetch cricket events with cache busting and no-cache
-fetchWithCacheBusting('cricket.json')
+// Fetch cricket events
+fetch('cricket.json')
     .then(response => response.json())
     .then(data => {
         // Loop through each cricket league and render matches
@@ -111,8 +102,6 @@ function updateStatus() {
     });
 }
 
-// Update every minute (60,000 ms)
-setInterval(updateStatus, 60000);
-
-// Initial check when the page loads
+// Update every second
+setInterval(updateStatus, 1000);
 updateStatus();
