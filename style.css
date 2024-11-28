@@ -1,28 +1,93 @@
-/* Container for events */
-.yosintv-container {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
 }
 
-/* Match event styles */
+/* Section Headers */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+h2 {
+    color: #444;
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* Match Containers */
+.yosintv-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Match Buttons */
+.yosintv-button {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    background-color: rgb(244, 17, 17);
+    color: #fff;
+    text-align: center;
+    text-decoration: none; /* Remove default underline for anchor elements */
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    cursor: pointer;
+}
+
+.yosintv-button:hover {
+    background-color: rgb(220, 0, 0); /* Darker red when hovered */
+}
+
+/* Blinking Effect for "Live" */
+.blink {
+    animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
+/* Countdown Styling */
+.countdown span {
+    background-color: black;
+    color: white;
+    padding: 1px 2px;
+    border-radius: 4px;
+    margin: 0 1px;
+    font-size: 16px;
+}
+
+/* Event Styling */
 .event {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
+    color: inherit;
     margin: 10px 0;
     padding: 10px;
     border: 2px solid #000;
     border-radius: 5px;
     cursor: pointer;
-    text-decoration: none;
-    color: inherit;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
 }
+
 .event:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Event name */
+/* Event Name */
 .event-name {
     flex: 2;
     text-align: left;
@@ -30,35 +95,33 @@
     font-weight: bold;
 }
 
-/* Countdown */
+/* Countdown Section */
 .event-countdown {
     flex: 1;
     text-align: right;
     color: black;
 }
 
-/* Blinking effect for "Live Now" */
-.blink {
-    animation: blink-animation 1s steps(2, start) infinite;
-}
-@keyframes blink-animation {
-    to {
-        visibility: hidden;
-    }
-}
-
-/* Countdown spans */
-.countdown span {
-    background-color: black;
-    color: white;
-    padding: 1px 4px;
-    border-radius: 4px;
-    margin: 0 2px;
-    font-size: 20px;
-}
-
-/* Live text */
+/* Live Event Highlight */
 .event-live {
     font-weight: bold;
     color: red;
+}
+
+/* Cricket Section Styling */
+#yosintv-cricket .event {
+    border-color: #1a73e8;
+}
+
+#yosintv-cricket h2 {
+    color: #1a73e8;
+}
+
+/* Football Section Styling */
+#yosintv-football .event {
+    border-color: #34a853;
+}
+
+#yosintv-football h2 {
+    color: #34a853;
 }
