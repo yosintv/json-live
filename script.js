@@ -1,15 +1,22 @@
-// Fetch JSON data and render events dynamically
-fetch('events.json')
+// Fetch cricket events
+fetch('cricket.json')
     .then(response => response.json())
     .then(events => {
-        renderEvents(events);
-        setInterval(updateStatus, 1000);
-        updateStatus();
+        renderEvents(events, 'cricket-container');
     })
-    .catch(error => console.error('Error loading events:', error));
+    .catch(error => console.error('Error loading cricket events:', error));
 
-function renderEvents(events) {
-    const container = document.getElementById('events-container');
+// Fetch football events
+fetch('football.json')
+    .then(response => response.json())
+    .then(events => {
+        renderEvents(events, 'football-container');
+    })
+    .catch(error => console.error('Error loading football events:', error));
+
+// Render events dynamically
+function renderEvents(events, containerId) {
+    const container = document.getElementById(containerId);
 
     events.forEach(event => {
         const eventElement = document.createElement('div');
@@ -29,8 +36,13 @@ function renderEvents(events) {
         eventElement.appendChild(countdown);
         container.appendChild(eventElement);
     });
+
+    // Start status updates for all events
+    setInterval(updateStatus, 1000);
+    updateStatus();
 }
 
+// Update event statuses (Live, Countdown, Ended)
 function updateStatus() {
     const eventElements = document.querySelectorAll('.event');
     const currentTime = new Date().getTime();
