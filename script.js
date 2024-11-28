@@ -1,8 +1,17 @@
-// Fetch football events
-fetch('football.json')
+// Function to fetch JSON with cache busting
+function fetchWithCacheBusting(url) {
+    const timestamp = new Date().getTime(); // Current timestamp
+    const urlWithTimestamp = `${url}?t=${timestamp}`; // Add timestamp to URL for cache busting
+    return fetch(urlWithTimestamp, {
+        cache: 'no-store' // Ensure no cache is used
+    });
+}
+
+// Fetch football events with cache busting and no-cache
+fetchWithCacheBusting('football.json')
     .then(response => response.json())
     .then(data => {
-        // Loop through each league and render matches
+        // Loop through each football league and render matches
         const footballContainer = document.getElementById('yosintv-football');
         
         data.footballLeagues.forEach(league => {
@@ -25,7 +34,34 @@ fetch('football.json')
     })
     .catch(error => console.error('Error loading football events:', error));
 
-// Render individual event
+// Fetch cricket events with cache busting and no-cache
+fetchWithCacheBusting('cricket.json')
+    .then(response => response.json())
+    .then(data => {
+        // Loop through each cricket league and render matches
+        const cricketContainer = document.getElementById('yosintv-cricket');
+        
+        data.cricketLeagues.forEach(league => {
+            // Create league title
+            const leagueTitle = document.createElement('div');
+            leagueTitle.classList.add('yosintv-button');
+            leagueTitle.textContent = `Today ${league.league} Matches`;
+            cricketContainer.appendChild(leagueTitle);
+            
+            // Create container for matches under this league
+            const leagueContainer = document.createElement('div');
+            leagueContainer.classList.add('yosintv-container');
+            cricketContainer.appendChild(leagueContainer);
+
+            // Loop through each match in the league
+            league.matches.forEach(match => {
+                renderEvent(match, leagueContainer);
+            });
+        });
+    })
+    .catch(error => console.error('Error loading cricket events:', error));
+
+// Render individual event (for both football and cricket)
 function renderEvent(event, container) {
     const eventElement = document.createElement('div');
     eventElement.classList.add('event');
@@ -75,6 +111,8 @@ function updateStatus() {
     });
 }
 
-// Update every second
-setInterval(updateStatus, 1000);
+// Update every minute (60,000 ms)
+setInterval(updateStatus, 60000);
+
+// Initial check when the page loads
 updateStatus();
