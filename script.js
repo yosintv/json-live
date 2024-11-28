@@ -1,57 +1,48 @@
-// Fetch cricket events
-fetch('cricket.json')
-    .then(response => response.json())
-    .then(events => {
-        renderEvents(events, 'yosintv-cricket'); // Render events in the cricket container
-    })
-    .catch(error => console.error('Error loading cricket events:', error));
-
 // Fetch football events
 fetch('football.json')
     .then(response => response.json())
-    .then(events => {
-        renderEvents(events, 'yosintv-football'); // Render events in the football container
+    .then(data => {
+        // Loop through each league and render matches
+        const footballContainer = document.getElementById('yosintv-football');
+        
+        data.footballLeagues.forEach(league => {
+            // Create league title
+            const leagueTitle = document.createElement('div');
+            leagueTitle.classList.add('yosintv-button');
+            leagueTitle.textContent = `Today ${league.league} Matches`;
+            footballContainer.appendChild(leagueTitle);
+            
+            // Create container for matches under this league
+            const leagueContainer = document.createElement('div');
+            leagueContainer.classList.add('yosintv-container');
+            footballContainer.appendChild(leagueContainer);
+
+            // Loop through each match in the league
+            league.matches.forEach(match => {
+                renderEvent(match, leagueContainer);
+            });
+        });
     })
     .catch(error => console.error('Error loading football events:', error));
 
-// Render events dynamically
-function renderEvents(events, containerId) {
-    const container = document.getElementById(containerId);
+// Render individual event
+function renderEvent(event, container) {
+    const eventElement = document.createElement('div');
+    eventElement.classList.add('event');
+    eventElement.setAttribute('data-link', event.link);
+    eventElement.setAttribute('data-start', event.start);
+    eventElement.setAttribute('data-duration', event.duration);
 
-    // Clear existing content (in case data is reloaded)
-    container.innerHTML = '';
+    const eventName = document.createElement('div');
+    eventName.classList.add('event-name');
+    eventName.textContent = event.name;
 
-    // Check if events are available
-    if (events.length === 0) {
-        const noEventsMessage = document.createElement('p');
-        noEventsMessage.textContent = 'No events available for today.';
-        container.appendChild(noEventsMessage);
-        return;
-    }
+    const countdown = document.createElement('div');
+    countdown.classList.add('event-countdown');
 
-    // Loop through events and create elements
-    events.forEach(event => {
-        const eventElement = document.createElement('div');
-        eventElement.classList.add('event');
-        eventElement.setAttribute('data-link', event.link);
-        eventElement.setAttribute('data-start', event.start);
-        eventElement.setAttribute('data-duration', event.duration);
-
-        const eventName = document.createElement('div');
-        eventName.classList.add('event-name');
-        eventName.textContent = event.name;
-
-        const countdown = document.createElement('div');
-        countdown.classList.add('event-countdown');
-
-        eventElement.appendChild(eventName);
-        eventElement.appendChild(countdown);
-        container.appendChild(eventElement);
-    });
-
-    // Start status updates for all events
-    setInterval(updateStatus, 1000);
-    updateStatus();
+    eventElement.appendChild(eventName);
+    eventElement.appendChild(countdown);
+    container.appendChild(eventElement);
 }
 
 // Update event statuses (Live, Countdown, Ended)
@@ -83,3 +74,7 @@ function updateStatus() {
         };
     });
 }
+
+// Update every second
+setInterval(updateStatus, 1000);
+updateStatus();
