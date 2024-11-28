@@ -2,7 +2,7 @@
 fetch('cricket.json')
     .then(response => response.json())
     .then(events => {
-        renderEvents(events, 'cricket-container');
+        renderEvents(events, 'yosintv-cricket'); // Render events in the cricket container
     })
     .catch(error => console.error('Error loading cricket events:', error));
 
@@ -10,7 +10,7 @@ fetch('cricket.json')
 fetch('football.json')
     .then(response => response.json())
     .then(events => {
-        renderEvents(events, 'football-container');
+        renderEvents(events, 'yosintv-football'); // Render events in the football container
     })
     .catch(error => console.error('Error loading football events:', error));
 
@@ -18,6 +18,18 @@ fetch('football.json')
 function renderEvents(events, containerId) {
     const container = document.getElementById(containerId);
 
+    // Clear existing content (in case data is reloaded)
+    container.innerHTML = '';
+
+    // Check if events are available
+    if (events.length === 0) {
+        const noEventsMessage = document.createElement('p');
+        noEventsMessage.textContent = 'No events available for today.';
+        container.appendChild(noEventsMessage);
+        return;
+    }
+
+    // Loop through events and create elements
     events.forEach(event => {
         const eventElement = document.createElement('div');
         eventElement.classList.add('event');
