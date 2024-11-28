@@ -4,79 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match Events</title>
-	
-    <style>
-	/* Container for events */
-.yosintv-container {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-}
-
-/* Match event styles */
-.event {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid #000;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-}
-.event:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Event name */
-.event-name {
-    flex: 2;
-    text-align: left;
-    color: black;
-    font-weight: bold;
-}
-
-/* Countdown */
-.event-countdown {
-    flex: 1;
-    text-align: right;
-    color: black;
-}
-
-/* Blinking effect for "Live Now" */
-.blink {
-    animation: blink-animation 1s steps(2, start) infinite;
-}
-@keyframes blink-animation {
-    to {
-        visibility: hidden;
-    }
-}
-
-/* Countdown spans */
-.countdown span {
-    background-color: black;
-    color: white;
-    padding: 1px 4px;
-    border-radius: 4px;
-    margin: 0 2px;
-    font-size: 20px;
-}
-
-/* Live text */
-.event-live {
-    font-weight: bold;
-    color: red;
-}
-
-</style>
+    <link rel="stylesheet" href="style.css"> 
 	
 </head>
 <body>
     <div id="events-container" class="yosintv-container"></div>
 
-    <script src="script.js"></script> <!-- Link to JavaScript file -->
+    <script src="script.js"></script>  
 </body>
 </html>
