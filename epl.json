@@ -1,32 +1,17 @@
-[
-    {
-        "footballLeagues": [
-            {
-                "league": "EPL",
-                "matches": [
-
-                  
-                    {
-                        "name": "La Liga Match 1",
-                        "start": "2024-12-01T19:00:00+09:00",
-                        "duration": 90,
-                        "link": "https://example.com/laliga1"
-                    },
-
-
-                  
-                    {
-                        "name": "La Liga Match 2",
-                        "start": "2024-12-02T21:00:00+09:00",
-                        "duration": 90,
-                        "link": "https://example.com/laliga2"
-                    }
-
-
-
-                  
-                ]
-            }
-        ]
-    }
-]
+{
+    "league": "EPL",
+    "matches": [
+        {
+            "name": "EPL Match 1",
+            "start": "2024-12-02T18:00:00+09:00",
+            "duration": 2,
+            "link": "https://example.com/epl1"
+        },
+        {
+            "name": "EPL Match 2",
+            "start": "2024-12-02T20:00:00+09:00",
+            "duration": 2,
+            "link": "https://example.com/epl2"
+        }
+    ]
+}
