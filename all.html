@@ -198,7 +198,7 @@ h2 {
     <script>
         // Load JSON data from external files
         function loadLeaguesData() {
-            fetch('/data/leaguesData.json')
+            fetch('/json-live/data/leaguesData.json')
                 .then(response => response.json())
                 .then(data => {
                     leaguesData = data;
