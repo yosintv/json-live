@@ -1,0 +1,27 @@
+{
+    "footballLeagues": [
+        {
+            "league": "EPL",
+            "matches": [
+                {
+                    "name": "EPL Match 1",
+                    "start": "2024-12-02T18:00:00+09:00",
+                    "duration": 9,
+                    "link": "https://example.com/epl1"
+                },
+                {
+                    "name": "EPL Match 2",
+                    "start": "2024-11-29T20:00:00+09:00",
+                    "duration": 9,
+                    "link": "https://example.com/epl2"
+                },
+                {
+                    "name": "EPL Match 3",
+                    "start": "2024-11-29T22:00:00+09:00",
+                    "duration": 9,
+                    "link": "https://example.com/epl3"
+                }
+            ]
+        }
+    ]
+}
