@@ -1,0 +1,17 @@
+{
+    "league": "Serie A",
+    "matches": [
+        {
+            "name": "Serie A Match 1",
+            "start": "2024-12-02T18:00:00+09:00",
+            "duration": 2,
+            "link": "https://example.com/seriea1"
+        },
+        {
+            "name": "Serie A Match 2",
+            "start": "2024-12-02T20:30:00+09:00",
+            "duration": 2,
+            "link": "https://example.com/seriea2"
+        }
+    ]
+}
