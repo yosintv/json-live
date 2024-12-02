@@ -1,0 +1,17 @@
+{
+    "league": "Ligue 1",
+    "matches": [
+        {
+            "name": "Ligue 1 Match 1",
+            "start": "2024-12-02T17:30:00+09:00",
+            "duration": 2,
+            "link": "https://example.com/ligue1"
+        },
+        {
+            "name": "Ligue 1 Match 2",
+            "start": "2024-12-02T20:00:00+09:00",
+            "duration": 2,
+            "link": "https://example.com/ligue2"
+        }
+    ]
+}
