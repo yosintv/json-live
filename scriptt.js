@@ -1,8 +1,8 @@
 // List of league JSON files with display names
 const leagueFiles = [
-    { name: 'EPL', file: 'epl.json' },
-    { name: 'La Liga', file: 'laliga.json' },
-    { name: 'Bundesliga', file: 'bundesliga.json' },
+    { name: 'EPL', file: 'cricket.json' },
+    { name: 'La Liga', file: 'football.json' },
+    { name: 'Bundesliga', file: 'laliga.json' },
     { name: 'Serie A', file: 'seriea.json' },
     { name: 'Ligue 1', file: 'ligue1.json' }
 ];
