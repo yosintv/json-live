@@ -1,151 +1,89 @@
-// Global array to hold all league data
-let leaguesData = [];
+// Function to fetch and process leagues from multiple JSON files
+function fetchAndRenderLeagues(jsonFiles, containerId) {
+    const container = document.getElementById(containerId);
 
-// Function to fetch and load all leagues
-function loadLeagues() {
-    const leagueFiles = [
-        'leagues/epl.json',
-        'leagues/la_liga.json',
-        'leagues/bundesliga.json',
-        'leagues/serie_a.json',
-        'leagues/ligue_1.json'
-        // Add more league files here as needed
-    ];
-
-    leaguesData = []; // Clear previous data
-
-    // Fetch all league files
-    Promise.all(leagueFiles.map(file => fetch(file).then(res => res.json())))
-        .then(dataArray => {
-            leaguesData = dataArray;
-            renderAllMatches(); // Render all matches initially
-            renderLeagueButtons(); // Render league buttons
+    // Fetch all JSON files concurrently
+    Promise.all(jsonFiles.map(file => fetch(file).then(res => res.json())))
+        .then(dataSets => {
+            dataSets.forEach(data => {
+                // Loop through leagues in each JSON file
+                data.footballLeagues.forEach(league => {
+                    // Render league and matches
+                    renderLeague(league, container);
+                });
+            });
         })
-        .catch(error => console.error('Error loading leagues:', error));
+        .catch(error => console.error('Error loading data:', error));
 }
 
-// Function to render all matches on the homepage
-function renderAllMatches() {
-    const container = document.getElementById('yosintv-football');
-    container.innerHTML = ''; // Clear previous content
+// Render a single league and its matches
+function renderLeague(league, container) {
+    // Add league title
+    const leagueTitle = document.createElement('div');
+    leagueTitle.classList.add('league-title');
+    leagueTitle.textContent = `Today ${league.league} Matches`;
+    container.appendChild(leagueTitle);
 
-    leaguesData.forEach(league => {
-        // Create league title
-        const leagueTitle = document.createElement('div');
-        leagueTitle.classList.add('yosintv-button');
-        leagueTitle.textContent = `Today ${league.league} Matches`;
-        container.appendChild(leagueTitle);
-
-        // Create matches container
-        const leagueContainer = document.createElement('div');
-        leagueContainer.classList.add('yosintv-container');
-        container.appendChild(leagueContainer);
-
-        // Render each match
-        league.matches.forEach(match => renderEvent(match, leagueContainer));
+    // Add matches
+    league.matches.forEach(match => {
+        renderMatch(match, container);
     });
 }
 
-// Function to render matches for a specific league
-function renderLeagueMatches(leagueName) {
-    const container = document.getElementById('yosintv-football');
-    container.innerHTML = ''; // Clear previous content
+// Render a single match
+function renderMatch(match, container) {
+    const matchElement = document.createElement('div');
+    matchElement.classList.add('event');
+    matchElement.setAttribute('data-link', match.link);
+    matchElement.setAttribute('data-start', match.start);
+    matchElement.setAttribute('data-duration', match.duration);
 
-    const league = leaguesData.find(l => l.league === leagueName);
-
-    if (league) {
-        // Create league title
-        const leagueTitle = document.createElement('div');
-        leagueTitle.classList.add('yosintv-button');
-        leagueTitle.textContent = `Today ${league.league} Matches`;
-        container.appendChild(leagueTitle);
-
-        // Create matches container
-        const leagueContainer = document.createElement('div');
-        leagueContainer.classList.add('yosintv-container');
-        container.appendChild(leagueContainer);
-
-        // Render each match
-        league.matches.forEach(match => renderEvent(match, leagueContainer));
-    }
-}
-
-// Function to render an individual event
-function renderEvent(event, container) {
-    const eventElement = document.createElement('div');
-    eventElement.classList.add('event');
-    eventElement.setAttribute('data-link', event.link);
-    eventElement.setAttribute('data-start', event.start);
-    eventElement.setAttribute('data-duration', event.duration);
-
-    const eventName = document.createElement('div');
-    eventName.classList.add('event-name');
-    eventName.textContent = event.name;
+    const matchName = document.createElement('div');
+    matchName.classList.add('event-name');
+    matchName.textContent = match.name;
 
     const countdown = document.createElement('div');
     countdown.classList.add('event-countdown');
 
-    eventElement.appendChild(eventName);
-    eventElement.appendChild(countdown);
-    container.appendChild(eventElement);
+    matchElement.appendChild(matchName);
+    matchElement.appendChild(countdown);
+    container.appendChild(matchElement);
 
-    // Click to navigate to the match link
-    eventElement.onclick = function () {
-        window.location.href = event.link;
+    // Add click event
+    matchElement.onclick = function () {
+        window.location.href = match.link;
     };
 }
 
-// Function to render league buttons
-function renderLeagueButtons() {
-    const buttonContainer = document.getElementById('league-buttons');
-    buttonContainer.innerHTML = ''; // Clear previous buttons
-
-    // Create "All Matches" button
-    const allMatchesButton = document.createElement('button');
-    allMatchesButton.textContent = 'All Matches';
-    allMatchesButton.classList.add('yosintv-button');
-    allMatchesButton.onclick = renderAllMatches;
-    buttonContainer.appendChild(allMatchesButton);
-
-    // Create individual league buttons
-    leaguesData.forEach(league => {
-        const leagueButton = document.createElement('button');
-        leagueButton.textContent = league.league;
-        leagueButton.classList.add('yosintv-button');
-        leagueButton.onclick = () => renderLeagueMatches(league.league);
-        buttonContainer.appendChild(leagueButton);
-    });
-}
-
-// Function to update match countdowns
+// Update event statuses
 function updateStatus() {
-    const eventElements = document.querySelectorAll('.event');
+    const events = document.querySelectorAll('.event');
     const currentTime = new Date().getTime();
 
-    eventElements.forEach(element => {
-        const startTime = new Date(element.getAttribute('data-start')).getTime();
-        const durationHours = parseFloat(element.getAttribute('data-duration'));
+    events.forEach(event => {
+        const startTime = new Date(event.getAttribute('data-start')).getTime();
+        const durationHours = parseFloat(event.getAttribute('data-duration'));
         const endTime = startTime + durationHours * 60 * 60 * 1000;
-        const countdownElement = element.querySelector('.event-countdown');
+        const countdown = event.querySelector('.event-countdown');
 
         if (currentTime < startTime) {
             const timeDiff = startTime - currentTime;
             const hours = Math.floor(timeDiff / (1000 * 60 * 60));
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-            countdownElement.innerHTML = `<span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
+            countdown.textContent = `${hours}h ${minutes}m ${seconds}s`;
         } else if (currentTime >= startTime && currentTime <= endTime) {
-            countdownElement.innerHTML = '<div class="event-live blink">Live Now</div>';
+            countdown.innerHTML = `<span class="event-live">Live Now</span>`;
         } else {
-            countdownElement.textContent = 'Match End';
+            countdown.textContent = 'Match Ended';
         }
     });
 }
 
-// Update every second
+// Start fetching data and updating statuses
+const jsonFiles = ['football.json', 'laliga.json']; // Add more files if needed
+fetchAndRenderLeagues(jsonFiles, 'yosintv-football');
+
+// Update statuses every second
 setInterval(updateStatus, 1000);
 updateStatus();
-
-// Load all leagues on page load
-loadLeagues();
