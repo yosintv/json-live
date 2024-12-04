@@ -16,16 +16,16 @@ h2 {
     margin: 0 auto;
 }
 
-     /* League Title */
-        .league-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-            background-color: #d10000;
-            color: white;
-            border-radius: 5px;
-            text-align: center;
-        }
+/* League Title */
+ .league-title {
+ font-size: 20px;
+ font-weight: bold;
+ margin-top: 20px;
+ background-color: #d10000;
+ color: white;
+ border-radius: 5px;
+ text-align: center;
+ }
                
 /* Match Buttons */
 .yosintv-button {
@@ -49,16 +49,18 @@ h2 {
     background-color: rgb(220, 0, 0); /* Darker red when hovered */
 }
 
-/* Blinking Effect for "Live" */
+
 .blink {
-    animation: blink-animation 1s steps(2, start) infinite;
+    animation: blink-animation 1s linear infinite;
+    font-size: 11px; /* Set font size to 5px */
 }
 
 @keyframes blink-animation {
-    to {
-        visibility: hidden;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
+
+
 
 /* Countdown Styling */
 .countdown span {
