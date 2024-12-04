@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Events</title>
-    <style>
-        .league-title { font-weight: bold; margin-top: 20px; }
-        .event { margin-bottom: 10px; cursor: pointer; }
-        .event-name { font-size: 16px; }
-        .event-countdown { color: gray; }
-        .event-live { color: red; font-weight: bold; }
-    </style>
-
-    <link rel="stylesheet" href="all.css">
-
-    
+    <link rel="stylesheet" href="all.css"> <!-- Link to CSS file -->
 </head>
 <body>
-    <div id="yosintv-football"></div>
-    <script src="all.js"></script>
+    <h1>Sports Events</h1>
+
+    <!-- Cricket Section -->
+    <section id="cricket-section">
+        <!-- "Today Cricket Matches" Button -->
+        <div class="yosintv-button">Today Cricket Matches</div>
+        <div id="yosintv-cricket" class="yosintv-container"></div>
+    </section>
+
+    <!-- Football Section -->
+    <section id="football-section">
+        <!-- "Today Football Matches" Button -->
+        <div class="yosintv-button">Today Football Matches</div>
+        <div id="yosintv-football" class="yosintv-container"></div>
+    </section>
+
+    <script src="all.js"></script> <!-- Link to JavaScript file -->
 </body>
 </html>
