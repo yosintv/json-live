@@ -179,7 +179,6 @@ h2 {
 
 .blink {
     animation: blink-animation 1s linear infinite;
-    font-size: 11px; /* Set font size to 5px */
 }
 
 @keyframes blink-animation {
