@@ -1,15 +1,10 @@
 {
-    "footballLeagues": [
+    "matches": [
         {
-            "league": "La Liga",
-            "matches": [
-                {
-                    "name": "La Liga Match 1",
-                    "start": "2024-11-29T18:30:00+09:00",
-                    "duration": 9,
-                    "link": "https://example.com/laliga1"
-                }
-            ]
+            "name": " LaLiga Match 1",
+            "start": "2024-12-02T18:00:00+09:00",
+            "duration": 9,
+            "link": "https://example.com/match1"
         }
     ]
 }
