@@ -178,7 +178,8 @@ h2 {
 
 
 .blink {
-    animation: blink-animation 1s linear infinite;
+   color: red;
+    font-weight: bold;
 }
 
 @keyframes blink-animation {
