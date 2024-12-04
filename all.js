@@ -1,57 +1,69 @@
-// Fetch cricket events
-fetch('cricket.json')
-    .then(response => response.json())
-    .then(events => {
-        renderEvents(events, 'yosintv-cricket'); // Render events in the cricket container
-    })
-    .catch(error => console.error('Error loading cricket events:', error));
+// List of leagues and their corresponding JSON files
+const leagues = [
+    { id: 'yosintv-cricket', file: 'cricket.json', title: 'Cricket' },
+    { id: 'yosintv-football', file: 'football.json', title: 'Football' },
+    { id: 'yosintv-epl', file: 'epl.json', title: 'EPL' },
+    { id: 'yosintv-laliga', file: 'laliga.json', title: 'La Liga' }, // Example additional league
+    { id: 'yosintv-bundesliga', file: 'bundesliga.json', title: 'Bundesliga' } // Example additional league
+];
 
-// Fetch football events
-fetch('football.json')
-    .then(response => response.json())
-    .then(events => {
-        renderEvents(events, 'yosintv-football'); // Render events in the football container
-    })
-    .catch(error => console.error('Error loading football events:', error));
+// Fetch and render data for each league
+leagues.forEach(league => {
+    fetch(league.file)
+        .then(response => response.json())
+        .then(data => {
+            renderLeague(data, league.id, league.title);
+        })
+        .catch(error => console.error(`Error loading ${league.title} events:`, error));
+});
 
-// Render events dynamically
-function renderEvents(events, containerId) {
+// Render a league's matches
+function renderLeague(data, containerId, leagueTitle) {
     const container = document.getElementById(containerId);
 
-    // Clear existing content (in case data is reloaded)
-    container.innerHTML = '';
+    // Add league title
+    const titleElement = document.createElement('div');
+    titleElement.classList.add('yosintv-button');
+    titleElement.textContent = `Today ${leagueTitle} Matches`;
+    container.appendChild(titleElement);
 
-    // Check if events are available
-    if (events.length === 0) {
+    // Create container for matches
+    const matchesContainer = document.createElement('div');
+    matchesContainer.classList.add('yosintv-container');
+    container.appendChild(matchesContainer);
+
+    // Check if matches are available
+    if (!data.matches || data.matches.length === 0) {
         const noEventsMessage = document.createElement('p');
-        noEventsMessage.textContent = 'No events available for today.';
-        container.appendChild(noEventsMessage);
+        noEventsMessage.textContent = `No matches available for ${leagueTitle} today.`;
+        matchesContainer.appendChild(noEventsMessage);
         return;
     }
 
-    // Loop through events and create elements
-    events.forEach(event => {
-        const eventElement = document.createElement('div');
-        eventElement.classList.add('event');
-        eventElement.setAttribute('data-link', event.link);
-        eventElement.setAttribute('data-start', event.start);
-        eventElement.setAttribute('data-duration', event.duration);
-
-        const eventName = document.createElement('div');
-        eventName.classList.add('event-name');
-        eventName.textContent = event.name;
-
-        const countdown = document.createElement('div');
-        countdown.classList.add('event-countdown');
-
-        eventElement.appendChild(eventName);
-        eventElement.appendChild(countdown);
-        container.appendChild(eventElement);
+    // Loop through matches and render them
+    data.matches.forEach(match => {
+        renderEvent(match, matchesContainer);
     });
+}
 
-    // Start status updates for all events
-    setInterval(updateStatus, 1000);
-    updateStatus();
+// Render individual event
+function renderEvent(event, container) {
+    const eventElement = document.createElement('div');
+    eventElement.classList.add('event');
+    eventElement.setAttribute('data-link', event.link);
+    eventElement.setAttribute('data-start', event.start);
+    eventElement.setAttribute('data-duration', event.duration);
+
+    const eventName = document.createElement('div');
+    eventName.classList.add('event-name');
+    eventName.textContent = event.name;
+
+    const countdown = document.createElement('div');
+    countdown.classList.add('event-countdown');
+
+    eventElement.appendChild(eventName);
+    eventElement.appendChild(countdown);
+    container.appendChild(eventElement);
 }
 
 // Update event statuses (Live, Countdown, Ended)
@@ -83,3 +95,7 @@ function updateStatus() {
         };
     });
 }
+
+// Update every second
+setInterval(updateStatus, 1000);
+updateStatus();
