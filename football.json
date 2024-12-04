@@ -1,14 +1,10 @@
-[
-    {
-        "name": "Football Match 1",
-        "start": "2024-11-29T18:00:00+09:00",
-        "duration": 9,
-        "link": "https://example.com/football1"
-    },
-    {
-        "name": "Football Match 2",
-        "start": "2024-11-29T20:00:00+09:00",
-        "duration": 9,
-        "link": "https://example.com/football2"
-    }
-]
+{
+    "matches": [
+        {
+            "name": "Match 1",
+            "start": "2024-12-02T18:00:00+09:00",
+            "duration": 9,
+            "link": "https://example.com/match1"
+        }
+    ]
+}
