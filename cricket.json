@@ -1,16 +1,18 @@
 {
     "matches": [
         {
-            "name": "Match 1",
+            "name": "Fuck You 1",
             "start": "2024-12-02T18:00:00+09:00",
             "duration": 9,
             "link": "https://example.com/match1"
         },
-        {
-            "name": "Match 2",
-            "start": "2024-12-03T20:00:00+09:00",
+
+                {
+            "name": "Fuck You 2",
+            "start": "2024-12-02T18:00:00+09:00",
             "duration": 9,
-            "link": "https://example.com/match2"
+            "link": "https://example.com/match1"
         }
+        
     ]
 }
