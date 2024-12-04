@@ -5,62 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Matches</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
         }
-        .yosintv-button {
+
+        #yosintv-football {
+            margin-bottom: 40px;
+        }
+
+        /* League Title */
+        .league-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
             background-color: #007bff;
             color: white;
-            padding: 10px;
-            margin: 10px 0;
-            text-align: center;
-            font-size: 18px;
             border-radius: 5px;
+            text-align: center;
+            text-transform: uppercase;
         }
-        .yosintv-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px;
-        }
+
+        /* Match Container */
         .event {
-            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: white;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 10px;
-            width: 200px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .event:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        /* Match Name */
         .event-name {
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 5px;
         }
+
+        /* Countdown and Live Status */
         .event-countdown {
             font-size: 14px;
-            color: #555;
+            color: gray;
         }
+
         .event-live {
             color: red;
             font-weight: bold;
+            animation: blink 1s step-start infinite;
         }
-        .blink {
-            animation: blinker 1s linear infinite;
-        }
-        @keyframes blinker {
+
+        /* Blink Animation */
+        @keyframes blink {
             50% {
                 opacity: 0;
             }
         }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .event {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .event-name {
+                margin-bottom: 5px;
+            }
+        }
     </style>
+
 </head>
 <body>
     <div id="yosintv-cricket"></div>
@@ -72,7 +100,6 @@
     <script>
         // List of leagues and their corresponding JSON files
         const leagues = [
-            { id: 'yosintv-cricket', file: 'cricket.json', title: 'Cricket' },
             { id: 'yosintv-football', file: 'football.json', title: 'Football' },
             { id: 'yosintv-epl', file: 'epl.json', title: 'EPL' },
             { id: 'yosintv-laliga', file: 'laliga.json', title: 'La Liga' },
@@ -95,26 +122,21 @@
 
             // Add league title
             const titleElement = document.createElement('div');
-            titleElement.classList.add('yosintv-button');
-            titleElement.textContent = `Today ${leagueTitle} Matches`;
+            titleElement.classList.add('league-title');
+            titleElement.textContent = `Today's ${leagueTitle} Matches`;
             container.appendChild(titleElement);
-
-            // Create container for matches
-            const matchesContainer = document.createElement('div');
-            matchesContainer.classList.add('yosintv-container');
-            container.appendChild(matchesContainer);
 
             // Check if matches are available
             if (!data.matches || data.matches.length === 0) {
                 const noEventsMessage = document.createElement('p');
                 noEventsMessage.textContent = `No matches available for ${leagueTitle} today.`;
-                matchesContainer.appendChild(noEventsMessage);
+                container.appendChild(noEventsMessage);
                 return;
             }
 
             // Loop through matches and render them
             data.matches.forEach(match => {
-                renderEvent(match, matchesContainer);
+                renderEvent(match, container);
             });
         }
 
@@ -157,7 +179,7 @@
 
                     eventCountdownElement.innerHTML = `<span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
                 } else if (currentTime >= startTime && currentTime <= endTime) {
-                    eventCountdownElement.innerHTML = '<div class="event-live blink">Live Now</div>';
+                    eventCountdownElement.innerHTML = '<div class="event-live">Live Now</div>';
                 } else {
                     eventCountdownElement.textContent = 'Match End';
                 }
