@@ -188,12 +188,12 @@ h2 {
             font-weight: bold;
         }
 
-        .blink {
-            animation: blink 1s step-start infinite;
-        }
+.blink {
+    animation: blink-animation 1s linear infinite;
+    font-size: 11px; /* Set font size to 5px */
+}
 
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
+@keyframes blink-animation {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
