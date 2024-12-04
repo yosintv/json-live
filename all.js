@@ -80,7 +80,7 @@
 
                     eventCountdownElement.innerHTML = `<span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
                 } else if (currentTime >= startTime && currentTime <= endTime) {
-                    eventCountdownElement.innerHTML = '<div class="event-live">Live Now</div>';
+                    eventCountdownElement.innerHTML = '<div class="live-now blink">Live Now</div>';
                 } else {
                     eventCountdownElement.textContent = 'Match End';
                 }
