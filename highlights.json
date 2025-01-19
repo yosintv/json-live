@@ -1,17 +1,17 @@
 [
     {
-        "image": "https://example.com/images/match1.jpg",
-        "title": "Match 1: Team A vs Team B",
+        "image": "https://images.daznservices.com/di/library/DAZN_News/b7/43/logos-real-madrid-manchester-city-2023_hzhuyq4nonqw1gtddcvmrfbyc.png?t=-611990409",
+        "title": "Madrid vs Real",
         "link": "https://example.com/highlights/match1"
     },
     {
-        "image": "https://example.com/images/match2.jpg",
-        "title": "Match 2: Team C vs Team D",
+        "image": "https://images.daznservices.com/di/library/DAZN_News/b7/43/logos-real-madrid-manchester-city-2023_hzhuyq4nonqw1gtddcvmrfbyc.png?t=-611990409",
+        "title": "Madrid vs PSG"
         "link": "https://example.com/highlights/match2"
     },
     {
-        "image": "https://example.com/images/match3.jpg",
-        "title": "Match 3: Team E vs Team F",
-        "link": "https://example.com/highlights/match3"
+        "image": "https://images.daznservices.com/di/library/DAZN_News/b7/43/logos-real-madrid-manchester-city-2023_hzhuyq4nonqw1gtddcvmrfbyc.png?t=-611990409",
+        "title": "Madrid vs Real",
+        "link": "https://example.com/highlights/match1"
     }
 ]
