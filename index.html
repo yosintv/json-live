@@ -18,11 +18,6 @@
             text-align: center;
             width: 200px;
         }
-        .highlight img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
         .highlight a {
             text-decoration: none;
             color: #007BFF;
@@ -30,6 +25,16 @@
         }
         .highlight a:hover {
             text-decoration: underline;
+        }
+        .highlight img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease;
+        }
+        .highlight img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -49,7 +54,9 @@
                     const highlightDiv = document.createElement('div');
                     highlightDiv.className = 'highlight';
                     highlightDiv.innerHTML = `
-                        <img src="${item.image}" alt="${item.title}">
+                        <a href="${item.link}" target="_blank">
+                            <img src="${item.image}" alt="${item.title}">
+                        </a>
                         <a href="${item.link}" target="_blank">${item.title}</a>
                     `;
                     highlightsDiv.appendChild(highlightDiv);
