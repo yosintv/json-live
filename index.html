@@ -29,10 +29,10 @@
 <body>
     <div class="container my-5">
         <h1 class="text-center mb-4">Football Highlights</h1>
-        <div class="row" id="highlights"></div>
+        <div class="row g-4" id="highlights"></div>
     </div>
 
-    <script src="https://yosintv.github.io/json-live/highlights.json"></script>
+    <script src="highlights.json"></script>
     <script>
         const highlightsDiv = document.getElementById('highlights');
 
@@ -42,7 +42,7 @@
             .then(data => {
                 data.forEach(item => {
                     const colDiv = document.createElement('div');
-                    colDiv.className = 'col-md-6 mb-4'; // Two images per row with Bootstrap
+                    colDiv.className = 'col-12 col-sm-6 col-lg-4'; // Responsive layout: 1 column on XS, 2 on SM, 3 on LG
                     colDiv.innerHTML = `
                         <div class="highlight text-center">
                             <a href="${item.link}" target="_blank">
