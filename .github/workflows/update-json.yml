@@ -2,7 +2,7 @@ name: Update Cricket JSON
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs every day at 00:00 UTC
+    - cron: '*/5 * * * *' # Runs every 5 minutes
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add cricket_live_events.json
-          git commit -m "Update cricket_live_events.json" || echo "No changes to commit"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update cricket_live_events.json at $(date)"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
