@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofascore JSON Viewer</title>
+  <style>
+    body { font-family: monospace; font-size: 14px; margin: 20px; background: #f9f9f9; color: #222; }
+    pre { white-space: pre-wrap; word-wrap: break-word; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <h2>Today’s Sofascore Data</h2>
+  <pre id="output">Loading...</pre>
+
+  <script>
+    // replace with your real GitHub Pages repo URL
+    const url = "/data/today.json";
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        const pretty = JSON.stringify(data, null, 2);
+        document.getElementById("output").textContent = pretty;
+      })
+      .catch(err => {
+        document.getElementById("output").textContent = "Error loading data: " + err;
+      });
+  </script>
+</body>
+</html>
