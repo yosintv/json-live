@@ -1,1 +1,45 @@
+name: Fetch Sofascore JSON
 
+on:
+  schedule:
+    - cron: "0 * * * *"   # runs every hour (UTC)
+  workflow_dispatch:       # allows manual run from GitHub UI
+
+jobs:
+  fetch-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Fetch Sofascore JSON
+        run: |
+          import requests, datetime, json, os
+          
+          # Today's date (JST)
+          today = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime("%Y-%m-%d")
+          url = f"https://www.sofascore.com/api/v1/sport/football/scheduled-events/{today}"
+          headers = { "User-Agent": "Mozilla/5.0" }
+          
+          r = requests.get(url, headers=headers)
+          r.raise_for_status()
+          data = r.json()
+
+          os.makedirs("data", exist_ok=True)
+          with open("data/today.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+
+        shell: python
+
+      - name: Commit and push JSON
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add data/today.json
+          git commit -m "Update sofascore JSON"
+          git push
