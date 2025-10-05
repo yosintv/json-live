@@ -1,4 +1,4 @@
-name: Update Sofascore API Data
+name: Update Sofascore API Data 
 
 on:
   schedule:
